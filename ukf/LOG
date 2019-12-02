@@ -1,0 +1,15 @@
+1st_iteration: parece remotamente aceitável medindo todos os estados
+
+2nd_iteration: parece remotamente aceitável sem medir ddq
+    |-> Eu tinha tentado simplesmente tirar a medição do ddq, mas parece que as matrizes de covariância explodem
+        |-> minha hipótese para isso era o fato da dinamica direta ser o inverso da inversa (mais ou menos) e 
+            linear algebra shenanigans + erro numérico
+    |-> A versão que funcionou eu simplesmente coloquei ddq[t+1] = ddq[t] e subi o process noise do ddq
+
+3rd_iteration: O observador não consegue estimar a força.
+    |-> Usando o método burro, que é calcular o torque devido ao movimento, subtrair ele do torque total e 
+        calcular a força multiplicando esse torque pelo inverso do Jacobiano naquele instante consegue pegar a força,
+        mas ele pega também o ruído e cria um monte de forças que não existem com magnitudes altíssimas (10e4)
+    |-> Sendo assim, nem o método burro daria pra ser usado em um caso real.
+    |-> Meu plano agora é voltar pra 1a iteração e aperfeiçoar o filtro de Kalman pra tirar esse ruído, que aí talvez
+        ele consiga calcular as coisas.
