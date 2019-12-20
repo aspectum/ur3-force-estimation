@@ -2,6 +2,7 @@ function ax = tight(ax)
 
     ax.PaperUnits = 'inches';
     ax.PaperPosition = [0 0 8 6];
+    ax.PaperSize = [8 6];
 
     axx = ax.Children(2);
     outerpos = axx.OuterPosition;

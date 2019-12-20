@@ -1,5 +1,6 @@
 clear
 clc
+root = getenv('root_directory');
 
 %%
 load('xs_park/done_2.mat');
@@ -31,40 +32,50 @@ bigq = [q; q; q; q];
 bigdq = [dq; dq; dq; dq];
 bigddq = [ddq; ddq; ddq; ddq];
 time = dt:dt:40;
-load("../../experiment/fid2.mat");
+% load("../../experiment/fid2.mat");
+load(strcat(root, 'data/fid2.mat'));
 
 %%
 
 delta = 4.06;
-pos = figure()
-plot(time, bigq(:,1), ftime-delta, fq(:,1)); legend('Trajetória planejada', 'Trajetória executada')
+pos = figure();
+plot(time, bigq(:,1), ftime-delta, fq(:,1)); legend('Planejada', 'Executada')
 xlim([0, 30])
 grid on
 ylabel('Posição da junta (rad)')
 xlabel('Tempo (s)')
-title('Divergência entre a trajetória planejada e a executada')
+title('Divergência entre trajetórias')
 
 %%
 
-vel = figure()
-plot(time, bigdq(:,1), ftime-delta, fdq(:,1)); legend('Trajetória planejada', 'Trajetória executada')
+vel = figure();
+plot(time, bigdq(:,1), ftime-delta, fdq(:,1)); legend('Planejada', 'Executada')
 xlim([0, 30])
 grid on
 ylabel('Velocidade da junta (rad/s)')
 xlabel('Tempo (s)')
-title('Divergência entre a trajetória planejada e a executada')
+title('Divergência entre trajetórias')
 
 %%
 
-acc = figure()
-plot(time, bigddq(:,1), ftime-delta, fddq(:,1)); legend('Trajetória planejada', 'Trajetória executada')
+acc = figure();
+plot(time, bigddq(:,1), ftime-delta, fddq(:,1)); legend('Planejada', 'Executada')
 xlim([0, 30])
 grid on
 ylabel('Aceleração da junta (rad/s^2)')
 xlabel('Tempo (s)')
-title('Divergência entre a trajetória planejada e a executada')
+title('Divergência entre trajetórias')
 
 %%
+
+pos.Children(1).FontSize = 20;
+pos.Children(2).FontSize = 20;
+
+vel.Children(1).FontSize = 20;
+vel.Children(2).FontSize = 20;
+
+acc.Children(1).FontSize = 20;
+acc.Children(2).FontSize = 20;
 
 poss = pos.Children(2).Children;
 poss(1).LineWidth = 1.5;
@@ -93,7 +104,12 @@ accc(2).Color = [0.4940, 0.1840, 0.5560];
 accc(2).LineStyle = '-';
 acc = tight(acc);
 
-saveas(pos, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_pos.png');
-saveas(vel, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_vel.png');
-saveas(acc, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_acc.png');
-
+% saveas(pos, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_pos.png');
+% saveas(vel, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_vel.png');
+% saveas(acc, '/home/pedro/tcc-tmp-master/my_ur3_model/Figures/divergence2_acc.png');
+saveas(pos, strcat(root, 'Figures/divergence2_pos.png'));
+saveas(vel, strcat(root, 'Figures/divergence2_vel.png'));
+saveas(acc, strcat(root, 'Figures/divergence2_acc.png'));
+print(pos, strcat(root, 'Figures/divergence2_pos'), '-dpdf', '-r0');
+print(vel, strcat(root, 'Figures/divergence2_vel'), '-dpdf', '-r0');
+print(acc, strcat(root, 'Figures/divergence2_acc'), '-dpdf', '-r0');
