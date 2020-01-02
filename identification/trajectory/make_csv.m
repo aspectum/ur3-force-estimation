@@ -1,3 +1,4 @@
+%% fourier
 % N = 5;
 % q0 = [0; -pi/2; 0; -pi/2; 0; 0];
 % fs = 125;
@@ -8,17 +9,16 @@
 % %     time = dt:dt:duration;
 % 
 % a = reshape(x(1:N*6), N, 6);
-% %         b = reshape(x(N*6+1:end-1), N, 6);
-% %         w = x(end);
 % b = reshape(x(N*6+1:end-1), N, 6);
 % w = 2*pi/10;
 % 
 % [q, dq, ddq] = traj_fourier(a, b, w, q0, N, samples, dt);
 % 
-% q(:,1) = q(:,1) ./2;
-% dq(:,1) = q(:,1) ./2;
-% ddq(:,1) = q(:,1) ./2;
+% % q(:,1) = q(:,1) ./2;
+% % dq(:,1) = q(:,1) ./2;
+% % ddq(:,1) = q(:,1) ./2;
 
+%% park
 fs = 50;
 duration = 10;
 
@@ -39,16 +39,7 @@ end
 q(:,2) = q(:,2) - pi/2;
 q(:,4) = q(:,4) - pi/2;
 
-
-[m, idx] = max(dq, [], 2);
-accel = zeros(samples,1);
-for i=1:samples
-    
-    accel(i) = ddq(i,idx(i));
-    
-end
-
+%% saving files
 csvwrite("csv/pos.csv",q);
 csvwrite("csv/vel.csv",dq);
 csvwrite("csv/acc.csv",ddq);
-csvwrite("csv/leading.csv",accel);

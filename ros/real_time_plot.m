@@ -13,14 +13,15 @@ sub = rossubscriber('/subsampled_arm');
 %%
 % time(i) = (msg{i,1}.Header.Stamp.Nsec - msg{1,1}.Header.Stamp.Nsec)/1e9 + (msg{i,1}.Header.Stamp.Sec - msg{1,1}.Header.Stamp.Sec);
 
-data = receive(sub, 1);
-stnsec = data.Header.Stamp.Nsec;
-stsec = data.Header.Stamp.Sec;
+data = receive(sub, 1);     % receive message from topic
+stnsec = data.Header.Stamp.Nsec;    % nanosseconds portion of time
+stsec = data.Header.Stamp.Sec;      % seconds portion of time
 time(1) = 0;
 q(1,:) = data.Position;
 dq(1,:) = data.Velocity;
 torque(1,:) = data.Effort;
 
+%%% receiving a few samples before plotting
 for i=2:10
     
     data = receive(sub, 1);
@@ -31,6 +32,7 @@ for i=2:10
     
 end
 
+%%% creating the figures
 figure()
 qplot = plot(time, q);
 ylim([-3*pi 3*pi])
@@ -56,9 +58,9 @@ ylabel('Joint Torques (N/m)');
 legend('1 ', '2 ', '3 ', '4 ', '5 ', '6 ');
 
 tic
-while i < 2000
+while i < 2000  % run for a bit
     
-    if mod(i,100) == 0
+    if mod(i,100) == 0  % only update figures every 100 samples, or else it's too slow
         set(qplot(1), 'xdata',time);
         set(qplot(1), 'ydata',q(:,1));
         set(qplot(2), 'xdata',time);
@@ -98,6 +100,8 @@ while i < 2000
         set(tplot(6), 'xdata',time);
         set(tplot(6), 'ydata',torque(:,6));
     end
+    
+    %%% receive new message
     data = receive(sub, 1);
     time(i) = (data.Header.Stamp.Nsec - stnsec)/1e9 + data.Header.Stamp.Sec - stsec;
     q(i,:) = data.Position;

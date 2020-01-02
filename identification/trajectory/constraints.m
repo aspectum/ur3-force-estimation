@@ -1,3 +1,16 @@
+% joint ranges: +- 360, and infinite on end joint
+% speed: 360 deg/sec on 4,5,6 and 180 deg/sec 1,2,3
+%   src: ur3 tech specs
+% accel: 300 deg/sec^2
+%   src: dof.robotiq.com universal robots joints values, jacobbom answer
+% AVOIDING SELF COLISION
+% considering q0 the offset necessary for the standing straight config
+% J1 - whatever
+% J2 - +- pi/2 (+-pi/4 safer) 
+% J3 - +-3pi/4 (+-pi/2 safer)
+% J4 - +- pi/2
+% J5 and J6 whatever
+
 function [c, ceq] = constraints(x, trajectory)
     
     if trajectory == "fourier"
@@ -9,11 +22,8 @@ function [c, ceq] = constraints(x, trajectory)
 
         dt = 1/fs;
         samples = duration * fs;
-    %     time = dt:dt:duration;
 
         a = reshape(x(1:N*6), N, 6);
-%         b = reshape(x(N*6+1:end-1), N, 6);
-%         w = x(end);
         b = reshape(x(N*6+1:end), N, 6);
         w = 2*pi/10;
 

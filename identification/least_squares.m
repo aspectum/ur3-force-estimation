@@ -1,24 +1,22 @@
 clear
 clc;
 
-Y = regressor_fr();
+Y = regressor_fr();     % call either 'regressor_fr' or 'regressor', one has the friction modeled and the other not
 sz_regressor = size(Y(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
 n_params = sz_regressor(2)
 
+%%% which trajectory to use
 load("../experiment/fid1.mat");
 % load("../experiment/fid2.mat");
-% load("../experiment/fdata.mat")
+% load("../experiment/fprbs.mat")
 
+%%% if id1 or id2, uncomment these
 q = fq;
 dq = fdq;
 ddq = fddq;
 torque = ftorque;
 
-% q = mq(21:end-20, :);
-% dq = mdq(21:end-20, :);
-% ddq = fddq;
-% torque = mtorque(21:end-20, :);
-
+%%% if prbs, uncomment these
 % q = q;
 % dq = d_q;
 % ddq = d_d_q;
@@ -48,6 +46,7 @@ fitness(q, dq, ddq, theta, torque, Y)
 sigma_rho = norm(Gamma - Phi*theta)/(size(Phi,1) - size(Phi,2));
 theta_cov = sigma_rho^2 * inv(Phi' * Phi);
 
+%%% uncomment the appropriate line
 % save('theta_id1_fr.mat', 'theta', 'theta_cov');
 % save('theta_id2_fr.mat', 'theta', 'theta_cov');
 % save('theta_prbs.mat', 'theta', 'theta_cov');

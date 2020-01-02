@@ -1,6 +1,4 @@
 function torque = torque_from_regressor(q, dq, ddq, theta, Y)
-
-%     Y = regressor();
     
     torque = zeros(6, length(q));
 

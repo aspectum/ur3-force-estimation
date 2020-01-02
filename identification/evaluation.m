@@ -79,7 +79,7 @@ elseif id == 2
     
 end
 
-
+%%% calculating the MSE as a measure of fitness
 fitness(q, dq, ddq, theta, torque, Y)
 
 torques = torque_from_regressor(q, dq, ddq, theta, Y);

@@ -1,7 +1,7 @@
 function val = fcn_park(x)
         
-    fs = 50;
-    duration = 60;
+    fs = 50;    % sampling rate
+    duration = 10; % period
     
     dt = 1/fs;
     samples = duration * fs;
@@ -17,6 +17,7 @@ function val = fcn_park(x)
         
     end
     
+    %%% initial position
     q(:,2) = q(:,2) - pi/2;
     q(:,4) = q(:,4) - pi/2;
     

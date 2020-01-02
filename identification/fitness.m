@@ -1,7 +1,6 @@
 function val = fitness(q, dq, ddq, theta, measured_torques, Y)
                                     
     torques = torque_from_regressor(q, dq, ddq, theta, Y);
-%     torques = lag2(q, dq, ddq, theta);
     torques = torques';
     Tau = zeros(1,6);
     for i=1:length(q)-1

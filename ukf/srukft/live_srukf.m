@@ -66,7 +66,7 @@ fcn_meas = @(x) measurement(x);
 
 % xv = zeros(L, samples); 
 
-%% receiving first data
+%% receiving first samples
 
 
 data = receive(sub, 1);

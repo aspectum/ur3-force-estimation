@@ -1,16 +1,20 @@
 clear
 clc
-n = 1000;
+n = 1000;   % number of initial guesses
 
+%%% I'm generating 1000 initial guesses and taking the 50 best
+
+%%% uncomment if generating guesses for the fourier parametrization
 % best_scores = 1e20*ones(1,50);
 % best_xs = zeros(61,50);
+
+%%% uncomment if generating guesses for the park parametrization
 best_scores = 1e20*ones(1,50);
 best_xs = zeros(30,50);
 
 
-
+%%% uncomment the appropriate lines for fourier or park
 for j=1:n
-    
 %     run('initial_guess_fourier.m');
     run('initial_guess_park.m');
 

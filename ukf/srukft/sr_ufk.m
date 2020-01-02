@@ -1,5 +1,6 @@
 % https://github.com/JJHu1993/sr-ukf
-% A bunch of transpose throughout (?)
+% there are a few comments with numbers that are the time it takes to run
+%   each section of code
 
 function [x_k, S_k] = sr_ufk(x_km1, S_km1, z, fcn_state, fcn_meas, Rv, Rn)
 % input:

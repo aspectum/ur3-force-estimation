@@ -1,4 +1,4 @@
-traj = 2;
+traj = 2;       % 1 - fourier; 2 - park
 
 if traj == 1
     
