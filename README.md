@@ -8,6 +8,7 @@ My graduation thesis, consisting in estimating the end-effector force on the UR3
 * `ukf` contains the Unscented Kalman Filter code for the force estimation
 * `ros` contains a simple MATLAB program that connects to the ROS network and plots the measured data in real time. This program was used as a test to figure out how to do it later with the ukf
 * `data` contains all the generated `.mat` files by all the programs
+* `catkin_ur3` contains the ROS programs
 
 ## How to use
 First, run `setup.m` to set up the path to the folder. Then you can run whatever you like. My workflow was first deriving the dynamic model, then generating a identification trajectory, solving the identification and finally run the ukf.
